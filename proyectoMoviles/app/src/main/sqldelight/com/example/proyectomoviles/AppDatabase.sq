@@ -1,0 +1,39 @@
+-- Tabla de notas para SQLDelight
+CREATE TABLE Nota (
+    id TEXT PRIMARY KEY NOT NULL,
+    contenido TEXT NOT NULL
+);
+
+-- Insertar una nueva nota
+insertNota:
+INSERT INTO Nota (id, contenido)
+VALUES (?, ?);
+
+-- Actualizar una nota existente
+updateNota:
+UPDATE Nota
+SET contenido = ?
+WHERE id = ?;
+
+-- Obtener todas las notas
+getAllNotas:
+SELECT * FROM Nota;
+
+-- Obtener una nota por ID
+getNotaById:
+SELECT * FROM Nota
+WHERE id = ?;
+
+-- Eliminar una nota por ID
+deleteNota:
+DELETE FROM Nota
+WHERE id = ?;
+
+-- Eliminar todas las notas
+deleteAllNotas:
+DELETE FROM Nota;
+
+-- Contar el número de notas
+countNotas:
+SELECT COUNT(*) FROM Nota;
+
