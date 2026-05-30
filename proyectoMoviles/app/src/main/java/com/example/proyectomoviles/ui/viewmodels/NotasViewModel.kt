@@ -94,11 +94,12 @@ class NotasViewModel @Inject constructor(
     fun eliminarNota(id: String) {
         viewModelScope.launch {
             try {
-                Log.d(TAG, "eliminarNota: Eliminando nota con id=$id")
-                // Por ahora, solo hacemos log ya que la interfaz NotasRepository
-                // no tiene método eliminarNota directo
-                // En una implementación real, se agregaría a la interfaz
-                Log.i(TAG, "eliminarNota: Nota eliminada - id=$id")
+                Log.d(TAG, "eliminarNota: Solicitando eliminación de id=$id")
+
+                // ¡ESTA ES LA LÍNEA QUE FALTABA!
+                repository.eliminarNota(id)
+
+                Log.i(TAG, "eliminarNota: Nota eliminada con éxito de la base de datos - id=$id")
             } catch (e: Exception) {
                 Log.e(TAG, "eliminarNota: Error al eliminar nota - ${e.message}", e)
             }
@@ -120,8 +121,6 @@ class NotasViewModel @Inject constructor(
             try {
                 repository.cambiarMotor(esRelacional)
                 Log.i(TAG, "cambiarMotor: Motor cambiado exitosamente a $motorNuevo")
-                // No necesitamos actualizar nada aquí porque el Flow ya está subscrito
-                // y la UI se actualizará automáticamente
             } catch (e: Exception) {
                 Log.e(TAG, "cambiarMotor: Error al cambiar motor a $motorNuevo - ${e.message}", e)
             }
@@ -136,4 +135,3 @@ class NotasViewModel @Inject constructor(
         return if (esRelacionalFlow.value) "SQL" else "Realm"
     }
 }
-
